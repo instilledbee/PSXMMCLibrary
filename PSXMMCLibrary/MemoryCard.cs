@@ -9,16 +9,19 @@ namespace PSXMMCLibrary
 {
     public class MemoryCard
     {
-        private static readonly Encoding _shiftJisEncoding = Encoding.GetEncoding(932);
-        private static readonly int _blockSize = 8192;
+        private static readonly int _BLOCK_SIZE = 8192;
+        private static readonly int _BLOCK_COUNT = 15;
 
-        private FileStream memCard;
+        private FileStream _memCard;
+        private List<DirectoryFrame> _directoryFrames;
 
         public MemoryCard(string filepath)
         {
             try
             {
-                memCard = File.Open(filepath, FileMode.Open);
+                _memCard = File.Open(filepath, FileMode.Open);
+                _directoryFrames = new List<DirectoryFrame>();
+                ParseDirectoryFrames();
             }
             catch (Exception ex)
             {
@@ -29,12 +32,12 @@ namespace PSXMMCLibrary
 
         public byte[] GetBlock(int index)
         {
-            byte[] block = new byte[_blockSize];
+            byte[] block = new byte[_BLOCK_SIZE];
 
             try
             {
-                memCard.Seek(_blockSize * index, SeekOrigin.Begin);
-                memCard.Read(block, 0, _blockSize);
+                _memCard.Seek(_BLOCK_SIZE * index, SeekOrigin.Begin);
+                _memCard.Read(block, 0, _BLOCK_SIZE);
             }
             catch(Exception ex)
             {
@@ -45,9 +48,9 @@ namespace PSXMMCLibrary
             return block;
         }
 
-        public void ShowMagicBlock()
+        public byte[] GetHeaderBlock()
         {
-            byte[] block = new byte[_blockSize];
+            byte[] block = new byte[_BLOCK_SIZE];
 
             try
             {
@@ -57,6 +60,29 @@ namespace PSXMMCLibrary
             {
                 Console.WriteLine("Unable to read header block.");
                 Console.WriteLine(ex.ToString());
+            }
+
+            return block;
+        }
+
+        public DirectoryFrame GetDirectoryFrame(int index)
+        {
+            if (_directoryFrames.Count == 0)
+            {
+                ParseDirectoryFrames();
+            }
+
+            return _directoryFrames[index];
+        }
+
+        private void ParseDirectoryFrames()
+        {
+            _directoryFrames.Clear();
+            var headerBlock = GetHeaderBlock();
+
+            for (int i = 0, offset = 128; i < _BLOCK_COUNT; ++i, offset += 128)
+            {
+                _directoryFrames.Add(DirectoryFrame.Parse(headerBlock.SubArray(offset, 128)));
             }
         }
     }

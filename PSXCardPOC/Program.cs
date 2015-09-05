@@ -25,46 +25,60 @@ namespace PSXCardPOC
 
             Console.ReadKey();
 
-            int offset = 128;
-
-            for (int i = 0; i <= 15; ++i)
+            for (int i = 0; i <= 14; ++i)
             {
-                Console.WriteLine("(#{0}) Directory Frame: ", i);
+                var directoryFrame = mc.GetDirectoryFrame(i);
+                Console.WriteLine("(#{0}) Directory Frame: ", i + 1);
 
-                Console.WriteLine("Availability: {0}", mBlock[offset++].ToString("X2"));
-
-                Console.Write("Block Reserved Flags:");
-                Console.Write(" " + mBlock[offset++].ToString("X2"));
-                Console.Write(" " + mBlock[offset++].ToString("X2"));
-                Console.Write(" " + mBlock[offset++].ToString("X2"));
-                Console.WriteLine("");
-
-                Console.Write("Used Blocks Byte:");
-                Console.Write(" " + mBlock[offset++].ToString("X2"));
-                Console.Write(" " + mBlock[offset++].ToString("X2"));
-                Console.Write(" " + mBlock[offset++].ToString("X2"));
-                Console.Write(" " + mBlock[offset++].ToString("X2"));
-                Console.WriteLine("");
-
-                Console.Write("Link order:");
-                Console.Write(" " + mBlock[offset++].ToString("X2"));
-                Console.Write(" " + mBlock[offset++].ToString("X2"));
-                Console.WriteLine("");
-
-                Console.Write("Country Code:");
-                Console.Write(" " + (char)mBlock[offset++]);
-                Console.Write("" + (char)mBlock[offset++]);
-                Console.WriteLine("");
-
-                Console.WriteLine("Product Code: {0}", shiftJisEncoding.GetString(mBlock, offset, 10));
-                offset += 10;
-                Console.WriteLine("Identifier: {0}", shiftJisEncoding.GetString(mBlock, offset, 8));
-                offset += 8;
-                offset += 97; // unused bytes (length 97/0x61) "00"
-                Console.WriteLine("Checksum: {0}", mBlock[offset++].ToString("X2"));
-
+                Console.WriteLine("Availability: {0}", directoryFrame.AvailableFlag);
+                Console.WriteLine("Used Blocks Byte: {0}", directoryFrame.BlocksUsed);
+                Console.WriteLine("Link order: {0}", directoryFrame.LinkOrder);
+                Console.WriteLine("Country Code: {0}", directoryFrame.Country);
+                Console.WriteLine("Product Code: {0}", directoryFrame.ProductCode);
+                Console.WriteLine("Identifier: {0}", directoryFrame.Identifier);
+                Console.WriteLine("Checksum: {0}", directoryFrame.CheckSum);
                 Console.ReadKey();
             }
+
+            //for (int i = 0; i <= 15; ++i)
+            //{
+            //    Console.WriteLine("(#{0}) Directory Frame: ", i);
+
+            //    Console.WriteLine("Availability: {0}", mBlock[offset++].ToString("X2"));
+
+            //    Console.Write("Block Reserved Flags:");
+            //    Console.Write(" " + mBlock[offset++].ToString("X2"));
+            //    Console.Write(" " + mBlock[offset++].ToString("X2"));
+            //    Console.Write(" " + mBlock[offset++].ToString("X2"));
+            //    Console.WriteLine("");
+
+            //    Console.Write("Used Blocks Byte:");
+            //    Console.Write(" " + mBlock[offset++].ToString("X2"));
+            //    Console.Write(" " + mBlock[offset++].ToString("X2"));
+            //    Console.Write(" " + mBlock[offset++].ToString("X2"));
+            //    Console.Write(" " + mBlock[offset++].ToString("X2"));
+            //    Console.WriteLine("");
+
+            //    Console.Write("Link order:");
+            //    Console.Write(" " + mBlock[offset++].ToString("X2"));
+            //    Console.Write(" " + mBlock[offset++].ToString("X2"));
+            //    Console.WriteLine("");
+
+            //    Console.WriteLine("Country Code: {0}", mBlock.DecodeShiftJISString(offset, 2));
+            //    offset += 2;
+
+            //    Console.WriteLine("Product Code: {0}", mBlock.DecodeShiftJISString(offset, 10));
+            //    offset += 10;
+
+            //    Console.WriteLine("Identifier: {0}", mBlock.DecodeShiftJISString(offset, 8));
+            //    offset += 8;
+
+            //    offset += 97; // unused bytes (length 97/0x61) "00"
+
+            //    Console.WriteLine("Checksum: {0}", mBlock[offset++].ToString("X2"));
+
+            //    Console.ReadKey();
+            //}
 
             for (int i = 1; i <= 15; ++i)
             {
