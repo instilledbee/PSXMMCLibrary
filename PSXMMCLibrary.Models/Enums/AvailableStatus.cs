@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace PSXMMCLibrary.Enums
+namespace PSXMMCLibrary.Models.Enums
 {
     /// <summary>
     /// Possible states for a save block's availability

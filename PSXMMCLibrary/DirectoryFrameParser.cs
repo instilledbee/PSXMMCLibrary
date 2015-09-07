@@ -1,69 +1,13 @@
-﻿using PSXMMCLibrary.Enums;
+﻿using PSXMMCLibrary.Models;
+using PSXMMCLibrary.Models.Enums;
+using PSXMMCLibrary.Utilities;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace PSXMMCLibrary
 {
-    /// <summary>
-    /// Contains metadata about a save game block
-    /// </summary>
-    public class DirectoryFrame
+    public class DirectoryFrameParser
     {
         private static readonly uint _FRAME_DATA_LENGTH = 128;
-
-        /// <summary>
-        /// Current usage status of the referenced block.
-        /// </summary>
-        public AvailableStatus AvailableFlag { get; private set; }
-
-        /// <summary>
-        /// Number of blocks the save game will be using
-        /// </summary>
-        public int BlocksUsed { get; private set; }
-
-        /// <summary>
-        /// The position of the block in its link line.
-        /// </summary>
-        public int LinkOrder { get; private set; }
-
-        /// <summary>
-        /// The saved game's country code
-        /// </summary>
-        public CountryCode Country { get; private set; }
-
-        /// <summary>
-        /// The saved game's product code
-        /// </summary>
-        public string ProductCode { get; private set; }
-
-        /// <summary>
-        /// The saved game's identifier
-        /// </summary>
-        public string Identifier { get; private set; }
-
-        /// <summary>
-        /// Alias property for concatenating the country code, product code and identifier
-        /// </summary>
-        public string Filename 
-        {
-            get 
-            {
-                return Country.ToString() + ProductCode + Identifier;
-            }
-        }
-
-        /// <summary>
-        /// XOR operation of all bytes of the frame
-        /// </summary>
-        public byte CheckSum { get; private set; }
-
-        /// <summary>
-        /// Constructor is hidden from outside the assembly.
-        /// </summary>
-        internal DirectoryFrame() { }
 
         /// <summary>
         /// Create a new DirectoryFrame structure from raw memory card data
@@ -72,20 +16,22 @@ namespace PSXMMCLibrary
         /// <returns></returns>
         public static DirectoryFrame Parse(byte[] data)
         {
-            DirectoryFrame frame = new DirectoryFrame();
+            DirectoryFrame frame = null;
 
             try
             {
+                frame = new DirectoryFrame();
+
                 // Sanity checks
                 Contract.Requires<ArgumentNullException>(data != null);
                 Contract.Requires<ArgumentException>(data.Length == _FRAME_DATA_LENGTH);
 
-                frame.AvailableFlag = ParseAvailableStatus(data[0]);
+                frame.AvailableStatus = ParseAvailableStatus(data[0]);
                 frame.BlocksUsed = ParseBlocksUsed(data.SubArray(4, 4));
                 frame.LinkOrder = ParseLinkOrder(data.SubArray(8, 2));
 
                 // Only first link blocks have this data
-                if (frame.AvailableFlag == AvailableStatus.FirstLink)
+                if (frame.AvailableStatus == AvailableStatus.FirstLink)
                 {
                     frame.Country = ParseCountryCode(data.SubArray(10, 2));
                     frame.ProductCode = ParseProductCode(data.SubArray(12, 10));
@@ -95,11 +41,19 @@ namespace PSXMMCLibrary
                 // TODO: Validate checksum by figuring out how the XOR on the bytes work.
                 frame.CheckSum = data[127];
             }
-            catch(Exception ex) 
+            catch (ArgumentException ex)
+            {
+                Console.WriteLine("Invalid data passed to parser.");
+                Console.WriteLine(ex.Message);
+
+                throw ex;
+            }
+            catch (Exception ex)
             {
                 Console.WriteLine("Error parsing directory frame data.");
-                Console.WriteLine(ex.ToString());
-                frame = null;
+                Console.WriteLine(ex.Message);
+
+                throw ex;
             }
 
             return frame;
@@ -157,11 +111,15 @@ namespace PSXMMCLibrary
              * 
              * Length: 4 bytes
              */
-            Contract.Requires(useBytes.Length == 4);
+            Contract.Requires<ArgumentException>(useBytes.Length == 4);
 
-            int baseCount = (Convert.ToInt32(useBytes[1].ToString("X"), 16)) / 7;
+            int baseCount = (Convert.ToInt32(useBytes[1].ToString("X"), 16)) / 32;
 
             // TODO: Figure out how other bytes represent saves that are more than 7 blocks long.
+            if (Convert.ToInt32(useBytes[2].ToString("X"), 16) == 1)
+            {
+                baseCount += 8;
+            }
 
             return baseCount;
         }
@@ -177,16 +135,25 @@ namespace PSXMMCLibrary
              * 
              * Length: 2 bytes
              */
-            Contract.Requires(linkOrderBytes.Length == 2);
+            Contract.Requires<ArgumentException>(linkOrderBytes.Length == 2);
+
+            int linkOrder = 0;
 
             if (linkOrderBytes[0] == 255 && linkOrderBytes[1] == 255)
             {
-                return -1;
+                linkOrder = -1;
             }
             else
             {
-                return (Convert.ToInt32(linkOrderBytes[1].ToString("X"), 16));
+                linkOrder = Convert.ToInt32(linkOrderBytes[1].ToString("X"), 16);
+
+                if (linkOrder > 15 || linkOrder < 0)
+                {
+                    throw new FormatException("Link order is not a valid block index.");
+                }
             }
+
+            return linkOrder;
         }
 
         private static CountryCode ParseCountryCode(byte[] countryCodeBytes)
@@ -198,7 +165,7 @@ namespace PSXMMCLibrary
              *
              * Length: 2 bytes
              */
-            Contract.Requires(countryCodeBytes.Length == 2);
+            Contract.Requires<ArgumentException>(countryCodeBytes.Length == 2);
 
             var countryCodeString = countryCodeBytes.DecodeShiftJISString(0, 2);
 
@@ -216,7 +183,7 @@ namespace PSXMMCLibrary
              * 
              * Length: 10 bytes
              */
-            Contract.Requires(productCodeBytes.Length == 10);
+            Contract.Requires<ArgumentException>(productCodeBytes.Length == 10);
 
             return productCodeBytes.DecodeShiftJISString(0, 10);
         }
@@ -230,7 +197,7 @@ namespace PSXMMCLibrary
              * 
              * Length: 8 bytes
              */
-            Contract.Requires(identifierBytes.Length == 8);
+            Contract.Requires<ArgumentException>(identifierBytes.Length == 8);
 
             return identifierBytes.DecodeShiftJISString(0, 8);
         }

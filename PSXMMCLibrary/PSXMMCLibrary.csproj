@@ -40,12 +40,16 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Contract.cs" />
-    <Compile Include="DirectoryFrame.cs" />
-    <Compile Include="Enums\AvailableStatus.cs" />
-    <Compile Include="Enums\CountryCode.cs" />
+    <Compile Include="DirectoryFrameParser.cs" />
     <Compile Include="MemoryCard.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="ParseHelper.cs" />
+    <Compile Include="Utilities\ParseHelper.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\PSXMMCLibrary.Models\PSXMMCLibrary.Models.csproj">
+      <Project>{bf0412a9-cafd-42c9-8868-67fffc390565}</Project>
+      <Name>PSXMMCLibrary.Models</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

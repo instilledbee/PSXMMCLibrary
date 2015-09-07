@@ -1,15 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using PSXMMCLibrary.Models;
+using PSXMMCLibrary.Utilities;
+using System;
 using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Collections.Generic;
 
 namespace PSXMMCLibrary
 {
     public class MemoryCard
     {
         private static readonly int _BLOCK_SIZE = 8192;
+        private static readonly int _FRAME_SIZE = 128;
         private static readonly int _BLOCK_COUNT = 15;
 
         private FileStream _memCard;
@@ -80,9 +80,9 @@ namespace PSXMMCLibrary
             _directoryFrames.Clear();
             var headerBlock = GetHeaderBlock();
 
-            for (int i = 0, offset = 128; i < _BLOCK_COUNT; ++i, offset += 128)
+            for (int i = 0, offset = _FRAME_SIZE; i < _BLOCK_COUNT; ++i, offset += _FRAME_SIZE)
             {
-                _directoryFrames.Add(DirectoryFrame.Parse(headerBlock.SubArray(offset, 128)));
+                _directoryFrames.Add(DirectoryFrameParser.Parse(headerBlock.SubArray(offset, _FRAME_SIZE)));
             }
         }
     }

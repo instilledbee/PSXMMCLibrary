@@ -1,9 +1,6 @@
 ﻿using System;
 using System.IO;
-using System.Collections.Generic;
-using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 using PSXMMCLibrary;
 
 namespace PSXCardPOC
@@ -12,7 +9,7 @@ namespace PSXCardPOC
     {
         static void Main(string[] args)
         {
-            MemoryCard mc = new MemoryCard("test.mcr");
+            MemoryCard mc = new MemoryCard("ctr.mcr");
             Encoding shiftJisEncoding = Encoding.GetEncoding(932);
 
             byte[] mBlock = mc.GetBlock(0);
@@ -30,7 +27,7 @@ namespace PSXCardPOC
                 var directoryFrame = mc.GetDirectoryFrame(i);
                 Console.WriteLine("(#{0}) Directory Frame: ", i + 1);
 
-                Console.WriteLine("Availability: {0}", directoryFrame.AvailableFlag);
+                Console.WriteLine("Availability: {0}", directoryFrame.AvailableStatus);
                 Console.WriteLine("Used Blocks Byte: {0}", directoryFrame.BlocksUsed);
                 Console.WriteLine("Link order: {0}", directoryFrame.LinkOrder);
                 Console.WriteLine("Country Code: {0}", directoryFrame.Country);
