@@ -39,6 +39,7 @@ namespace PSXMMCLibrary
                 }
 
                 // TODO: Validate checksum by figuring out how the XOR on the bytes work.
+                // Each byte is XORed one by one and the result is stored. Complies with the checksum protocol.
                 frame.CheckSum = data[127];
             }
             catch (ArgumentException ex)

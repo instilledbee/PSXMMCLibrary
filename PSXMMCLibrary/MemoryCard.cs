@@ -38,6 +38,8 @@ namespace PSXMMCLibrary
             {
                 _memCard.Seek(_BLOCK_SIZE * index, SeekOrigin.Begin);
                 _memCard.Read(block, 0, _BLOCK_SIZE);
+
+                var parsedBlock = BlockParser.Parse(block);
             }
             catch(Exception ex)
             {
@@ -46,6 +48,27 @@ namespace PSXMMCLibrary
             }
 
             return block;
+        }
+
+        public Block GetBlockModel(int index)
+        {
+            byte[] block = new byte[_BLOCK_SIZE];
+            Block parsedBlock = null;
+
+            try
+            {
+                _memCard.Seek(_BLOCK_SIZE * index, SeekOrigin.Begin);
+                _memCard.Read(block, 0, _BLOCK_SIZE);
+
+                parsedBlock = BlockParser.Parse(block);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Unable to read block at index " + index);
+                Console.WriteLine(ex.ToString());
+            }
+
+            return parsedBlock;
         }
 
         public byte[] GetHeaderBlock()
