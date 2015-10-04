@@ -9,10 +9,10 @@ namespace PSXMMCLibrary.Utilities
 {
     public static class ParseHelper
     {
-        /// <summary>
-        /// The PSX memory card's default encoding for strings it displays.
-        /// </summary>
-        private static readonly Encoding _shiftJisEncoding = Encoding.GetEncoding(932);
+        private ParseHelper()
+        {
+            throw new NotImplementedException("This class is a static utility class and may not be instantiated.");
+        }
 
         /// <summary>
         /// Returns a subrange from the given array.
@@ -39,7 +39,7 @@ namespace PSXMMCLibrary.Utilities
         /// <returns></returns>
         public static string DecodeShiftJISString(this byte[] data, int index, int length)
         {
-            return _shiftJisEncoding.GetString(data, index, length);
+            return Constants.ShiftJisEncoding.GetString(data, index, length);
         }
 
         /// <summary>

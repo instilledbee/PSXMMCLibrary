@@ -7,6 +7,11 @@ namespace PSXMMCLibrary
 {
     public class DirectoryFrameParser
     {
+        private DirectoryFrameParser()
+        {
+            throw new NotImplementedException("This class is a static utility class and may not be instantiated.");
+        }
+
         private static readonly uint _FRAME_DATA_LENGTH = 128;
 
         /// <summary>

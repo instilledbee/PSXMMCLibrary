@@ -10,7 +10,10 @@ namespace PSXMMCLibrary
 {
     public class BlockParser
     {
-        private static readonly uint _BLOCK_DATA_LENGTH = 8192;
+        private BlockParser()
+        {
+            throw new NotImplementedException("This class is a static utility class and may not be instantiated.");
+        }
 
         public static Block Parse(byte[] data) 
         {
@@ -22,7 +25,7 @@ namespace PSXMMCLibrary
 
                 // Sanity checks
                 Contract.Requires<ArgumentNullException>(data != null);
-                Contract.Requires<ArgumentException>(data.Length == _BLOCK_DATA_LENGTH);
+                Contract.Requires<ArgumentException>(data.Length == Constants.BlockLength);
 
                 int frameBytesOffset = 0;
 
@@ -44,7 +47,7 @@ namespace PSXMMCLibrary
                     frameBytesOffset = 128 * parsedBlock.IconFrames;
                 }
 
-                parsedBlock.SaveData = data.SubArray(128 + frameBytesOffset, (int)_BLOCK_DATA_LENGTH - 128 - frameBytesOffset);
+                parsedBlock.SaveData = data.SubArray(128 + frameBytesOffset, (int)Constants.BlockLength - 128 - frameBytesOffset);
 	        }
 	        catch (ArgumentException ex)
 	        {

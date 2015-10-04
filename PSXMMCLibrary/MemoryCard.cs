@@ -8,10 +8,6 @@ namespace PSXMMCLibrary
 {
     public class MemoryCard
     {
-        private static readonly int _BLOCK_SIZE = 8192;
-        private static readonly int _FRAME_SIZE = 128;
-        private static readonly int _BLOCK_COUNT = 15;
-
         private FileStream _memCard;
         private List<DirectoryFrame> _directoryFrames;
 
@@ -30,18 +26,16 @@ namespace PSXMMCLibrary
             }
         }
 
-        public byte[] GetBlock(int index)
+        public byte[] GetRawBlock(int index)
         {
-            byte[] block = new byte[_BLOCK_SIZE];
+            byte[] block = new byte[Constants.BlockLength];
 
             try
             {
-                _memCard.Seek(_BLOCK_SIZE * index, SeekOrigin.Begin);
-                _memCard.Read(block, 0, _BLOCK_SIZE);
-
-                var parsedBlock = BlockParser.Parse(block);
+                _memCard.Seek(Constants.BlockLength * index, SeekOrigin.Begin);
+                _memCard.Read(block, 0, (int)Constants.BlockLength);
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 Console.WriteLine("Unable to read block at index " + index);
                 Console.WriteLine(ex.ToString());
@@ -50,15 +44,15 @@ namespace PSXMMCLibrary
             return block;
         }
 
-        public Block GetBlockModel(int index)
+        public Block GetBlock(int index)
         {
-            byte[] block = new byte[_BLOCK_SIZE];
+            byte[] block = new byte[Constants.BlockLength];
             Block parsedBlock = null;
 
             try
             {
-                _memCard.Seek(_BLOCK_SIZE * index, SeekOrigin.Begin);
-                _memCard.Read(block, 0, _BLOCK_SIZE);
+                _memCard.Seek(Constants.BlockLength * index, SeekOrigin.Begin);
+                _memCard.Read(block, 0, (int)Constants.BlockLength);
 
                 parsedBlock = BlockParser.Parse(block);
             }
@@ -73,11 +67,11 @@ namespace PSXMMCLibrary
 
         public byte[] GetHeaderBlock()
         {
-            byte[] block = new byte[_BLOCK_SIZE];
+            byte[] block = new byte[Constants.BlockLength];
 
             try
             {
-                block = GetBlock(0);
+                block = GetRawBlock(0);
             }
             catch (Exception ex)
             {
@@ -103,9 +97,9 @@ namespace PSXMMCLibrary
             _directoryFrames.Clear();
             var headerBlock = GetHeaderBlock();
 
-            for (int i = 0, offset = _FRAME_SIZE; i < _BLOCK_COUNT; ++i, offset += _FRAME_SIZE)
+            for (int i = 0, offset = Constants.FrameLength; i < Constants.BlockCount; ++i, offset += Constants.FrameLength)
             {
-                _directoryFrames.Add(DirectoryFrameParser.Parse(headerBlock.SubArray(offset, _FRAME_SIZE)));
+                _directoryFrames.Add(DirectoryFrameParser.Parse(headerBlock.SubArray(offset, Constants.FrameLength)));
             }
         }
     }
