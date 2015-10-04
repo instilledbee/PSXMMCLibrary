@@ -12,7 +12,7 @@ namespace PSXCardPOC
             MemoryCard mc = new MemoryCard("ctr.mcr");
             Encoding shiftJisEncoding = Encoding.GetEncoding(932);
 
-            byte[] mBlock = mc.GetRawBlock(0);
+            byte[] mBlock = mc.GetHeaderBlock();
 
             Console.WriteLine("Header Block: ");
             // Values should be "M" "C"
@@ -41,7 +41,7 @@ namespace PSXCardPOC
             {
                 var block = mc.GetBlock(i);
 
-                Console.WriteLine("(#{0}) Title Frame: ", i);
+                Console.WriteLine("(#{0}) Block: ", i);
                 //Console.WriteLine("Magic values: {0}{1}", (char)(block[0]), (char)(block[1]));
                 Console.WriteLine("Icon display flag: {0}", block.IconFrames);
                 Console.WriteLine("Blocks used: {0}", block.BlocksUsed);

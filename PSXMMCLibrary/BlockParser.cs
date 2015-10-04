@@ -8,13 +8,13 @@ using System.Drawing;
 
 namespace PSXMMCLibrary
 {
-    public class BlockParser
+    public static class BlockParser
     {
-        private BlockParser()
-        {
-            throw new NotImplementedException("This class is a static utility class and may not be instantiated.");
-        }
-
+        /// <summary>
+        /// Create a new Block model from raw memory card data
+        /// </summary>
+        /// <param name="data">An 8192-length byte array</param>
+        /// <returns></returns>
         public static Block Parse(byte[] data) 
         {
             Block parsedBlock = null;

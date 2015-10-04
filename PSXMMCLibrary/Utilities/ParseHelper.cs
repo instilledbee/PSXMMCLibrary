@@ -9,11 +9,6 @@ namespace PSXMMCLibrary.Utilities
 {
     public static class ParseHelper
     {
-        private ParseHelper()
-        {
-            throw new NotImplementedException("This class is a static utility class and may not be instantiated.");
-        }
-
         /// <summary>
         /// Returns a subrange from the given array.
         /// Source: http://stackoverflow.com/a/943650

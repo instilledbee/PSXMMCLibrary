@@ -52,10 +52,5 @@ namespace PSXMMCLibrary.Models
         /// XOR operation of all bytes of the frame
         /// </summary>
         public byte CheckSum { get; set; }
-
-        /// <summary>
-        /// Constructor is hidden from outside the assembly.
-        /// </summary>
-        public DirectoryFrame() { }
     }
 }

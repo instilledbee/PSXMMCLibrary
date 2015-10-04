@@ -41,26 +41,14 @@ namespace PSXMMCLibrary
                 Console.WriteLine(ex.ToString());
             }
 
+            System.Diagnostics.Debug.WriteLine(block.ArrayToString());
             return block;
         }
 
         public Block GetBlock(int index)
         {
-            byte[] block = new byte[Constants.BlockLength];
-            Block parsedBlock = null;
-
-            try
-            {
-                _memCard.Seek(Constants.BlockLength * index, SeekOrigin.Begin);
-                _memCard.Read(block, 0, (int)Constants.BlockLength);
-
-                parsedBlock = BlockParser.Parse(block);
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine("Unable to read block at index " + index);
-                Console.WriteLine(ex.ToString());
-            }
+            byte[] block = GetRawBlock(index);
+            Block parsedBlock = BlockParser.Parse(block);
 
             return parsedBlock;
         }
