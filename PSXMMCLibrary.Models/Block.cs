@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace PSXMMCLibrary.Models
+﻿namespace PSXMMCLibrary.Models
 {
     /// <summary>
     /// Model that represents a block of memory card data

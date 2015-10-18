@@ -41,8 +41,8 @@ namespace PSXMMCLibrary
                 if (parsedBlock.IconFrames > 0 && !parsedBlock.IsLinkBlock)
                 {
                     parsedBlock.Icon = new BlockIcon();
-                    parsedBlock.Icon.Colors = ParseColorData(data.SubArray(96, 32));
-                    parsedBlock.Icon.Frames = ParseIconFrameData(data.SubArray(128, 128 * parsedBlock.IconFrames));
+                    parsedBlock.Icon.Colors.AddRange(ParseColorData(data.SubArray(96, 32)));
+                    parsedBlock.Icon.Frames.AddRange(ParseIconFrameData(data.SubArray(128, 128 * parsedBlock.IconFrames)));
 
                     frameBytesOffset = 128 * parsedBlock.IconFrames;
                 }
