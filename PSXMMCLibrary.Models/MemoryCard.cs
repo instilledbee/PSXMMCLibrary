@@ -7,6 +7,12 @@ namespace PSXMMCLibrary.Models
     /// </summary>
     public class MemoryCard
     {
+        public MemoryCard()
+        {
+            Blocks = new List<Block>();
+            DirectoryFrames = new List<DirectoryFrame>();
+        }
+
         /// <summary>
         /// The saved games contained in the memory card
         /// </summary>

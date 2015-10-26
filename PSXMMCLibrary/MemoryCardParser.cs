@@ -6,12 +6,12 @@ using System.Collections.Generic;
 
 namespace PSXMMCLibrary
 {
-    public class MemoryCard
+    public class MemoryCardParser
     {
         private FileStream _memCard;
         private List<DirectoryFrame> _directoryFrames;
 
-        public MemoryCard(string filepath)
+        public MemoryCardParser(string filepath)
         {
             try
             {

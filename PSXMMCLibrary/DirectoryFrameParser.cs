@@ -7,8 +7,6 @@ namespace PSXMMCLibrary
 {
     public static class DirectoryFrameParser
     {
-        private static readonly uint _FRAME_DATA_LENGTH = 128;
-
         /// <summary>
         /// Create a new DirectoryFrame structure from raw memory card data
         /// </summary>
@@ -24,7 +22,7 @@ namespace PSXMMCLibrary
 
                 // Sanity checks
                 Contract.Requires<ArgumentNullException>(data != null);
-                Contract.Requires<ArgumentException>(data.Length == _FRAME_DATA_LENGTH);
+                Contract.Requires<ArgumentException>(data.Length == Constants.FrameLength);
 
                 frame.AvailableStatus = ParseAvailableStatus(data[0]);
                 frame.BlocksUsed = ParseBlocksUsed(data.SubArray(4, 4));
@@ -58,6 +56,23 @@ namespace PSXMMCLibrary
             }
 
             return frame;
+        }
+
+        /// <summary>
+        /// Determine if a memory card's header frame is valid.
+        /// </summary>
+        /// <param name="data">A 128-length array containing the raw data</param>
+        /// <returns></returns>
+        public static bool IsValidHeaderFrame(byte[] data)
+        {
+            // Sanity checks
+            Contract.Requires<ArgumentNullException>(data != null);
+            Contract.Requires<ArgumentException>(data.Length == Constants.FrameLength);
+
+            byte[] magicValues = data.SubArray(0, 2);
+            byte xorValue = data[127];
+
+            return (magicValues[0] ^ magicValues[1]) == xorValue;
         }
 
         private static AvailableStatus ParseAvailableStatus(byte availableByte)
