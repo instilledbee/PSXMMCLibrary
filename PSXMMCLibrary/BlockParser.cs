@@ -97,6 +97,11 @@ namespace PSXMMCLibrary
                     iconFrames = 3;
                     break;
 
+                    // TODO: Determine if valid
+                case 19:
+                    iconFrames = 4;
+                    break;
+
                 default:
                     throw new FormatException("Invalid icon frame byte value.");
             }
