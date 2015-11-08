@@ -127,7 +127,7 @@ namespace PSXMMCLibrary
 
             /*
              * Color data is represented as:
-             *  M     B     G    R
+             *  M     R     G    B
              * [15][14-10][9-5][4-0]
              *  1   00000 00000 00000
              * 
@@ -141,21 +141,21 @@ namespace PSXMMCLibrary
             {
                 byte[] color = colorBytes.SubArray(i, 2);
 
-                bool isOpaque = ((color[0] & 128) >> 7) == 1;
+                //bool isOpaque = ((color[0] & 128) >> 7) == 1;
 
-                int blue = color[0].SubByte(2, 5);
+                int red = (int)Math.Round(color[0].SubByte(1, 5) * 8.225);
 
                 // Merge bits from the two color value bytes to form value for green channel
-                int green = color[0].To8BitArray()
+                int green = (int)Math.Round(color[0].To8BitArray()
                                     .SubArray(5, 3)
                                     .Concat(color[1].To8BitArray().SubArray(0, 2))
                                     .ToArray()
-                                    .ToByte();
+                                    .ToByte() * 8.225);
 
-                int red = color[1].SubByte(0, 5);
+                int blue = (int)Math.Round(color[1].SubByte(2, 5) * 8.225);
 
                 // Extrapolate the 5-bit color channels into 32-bit ARGB channels
-                colors[j] = Color.FromArgb(isOpaque ? 255 : 0, red * 8, green * 8, blue * 8);
+                colors[j] = Color.FromArgb(255, red, green, blue);
             }
 
             return colors;

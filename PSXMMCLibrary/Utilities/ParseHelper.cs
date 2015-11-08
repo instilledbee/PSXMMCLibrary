@@ -34,7 +34,7 @@ namespace PSXMMCLibrary.Utilities
         /// <returns></returns>
         public static string DecodeShiftJISString(this byte[] data, int index, int length)
         {
-            return Constants.ShiftJisEncoding.GetString(data, index, length);
+            return Constants.ShiftJisEncoding.GetString(data, index, length).Normalize(NormalizationForm.FormKC);
         }
 
         /// <summary>
