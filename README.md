@@ -4,7 +4,7 @@ A managed .NET library for parsing Playstation (PSX) memory card files.
 # About
 This project has mainly served as a learning tool for parsing Playstation memory card files. In its current state it is by no means feature-complete, and is considered a work in progress. This project is made public for the benefit of other developers to use and improve upon.
 
-For an example on how to use this library, check out its sibling project [PSXCardReader.NET](https://en.wikipedia.org/wiki/Model%E2%80%93view%E2%80%93presenter)
+For an example on how to use this library, check out its sibling project [PSXCardReader.NET](https://github.com/instilledbee/PSXCardReader.NET)
 
 # Project Structure
 * `PSXMMCLibrary` contains the important parsing logic for blocks and directory frames.
