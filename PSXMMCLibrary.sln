@@ -1,0 +1,34 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2013
+VisualStudioVersion = 12.0.40629.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PSXMMCLibrary", "PSXMMCLibrary\PSXMMCLibrary.csproj", "{BF21B471-1928-4A7E-8BB2-0A13D106E6ED}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PSXMMCLibrary.Models", "PSXMMCLibrary.Models\PSXMMCLibrary.Models.csproj", "{BF0412A9-CAFD-42C9-8868-67FFFC390565}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PSXMMCLibrary.Tests", "PSXMMCLibrary.Tests\PSXMMCLibrary.Tests.csproj", "{2DF3000E-7674-4A4E-A974-DCE1CB64CFBD}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{BF21B471-1928-4A7E-8BB2-0A13D106E6ED}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BF21B471-1928-4A7E-8BB2-0A13D106E6ED}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BF21B471-1928-4A7E-8BB2-0A13D106E6ED}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BF21B471-1928-4A7E-8BB2-0A13D106E6ED}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BF0412A9-CAFD-42C9-8868-67FFFC390565}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BF0412A9-CAFD-42C9-8868-67FFFC390565}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BF0412A9-CAFD-42C9-8868-67FFFC390565}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BF0412A9-CAFD-42C9-8868-67FFFC390565}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2DF3000E-7674-4A4E-A974-DCE1CB64CFBD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2DF3000E-7674-4A4E-A974-DCE1CB64CFBD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2DF3000E-7674-4A4E-A974-DCE1CB64CFBD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2DF3000E-7674-4A4E-A974-DCE1CB64CFBD}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
