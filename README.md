@@ -6,6 +6,9 @@ This project has mainly served as a learning tool for parsing Playstation memory
 
 For an example on how to use this library, check out its sibling project [PSXCardReader.NET](https://github.com/instilledbee/PSXCardReader.NET)
 
+# Usage
+You may integrate the source directly to your existing .NET application solution, or build a DLL out of the solution and reference it in your project. (Interop with non-.NET languages has not been tested)
+
 # Project Structure
 * `PSXMMCLibrary` contains the important parsing logic for blocks and directory frames.
 * `PSXMMCLibrary.Models` contains the POCOs that represent parsed data.
