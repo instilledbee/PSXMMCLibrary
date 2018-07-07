@@ -400,17 +400,17 @@ namespace PSXMMCLibrary.Tests
 
             Assert.AreEqual(0, block.IconFrames);
         }
-
-        //TODO: Implement string encoding for unit test assertions
+        
         [TestMethod]
-        [Ignore]
         public void BlockParser_ParseValidString()
         {
             Block block = null;
 
             block = BlockParser.Parse(validBlockData);
 
-            Assert.AreEqual("CTR:Saved Games and Scores", block.Title);
+            // String gets parsed as 32-char length
+            // Trailing spaces are intentional
+            Assert.AreEqual("CTR:Saved Games and Scores      ", block.Title);
         }
 
         [TestMethod]
