@@ -4,7 +4,6 @@ mono: none
 dotnet: 2.1.4
 install:
 - dotnet restore
-test:
-- dotnet test ./PSXMMCLibrary.Tests/PSXMMCLibrary.Tests.csproj
 script:
 - dotnet build
+- dotnet test ./PSXMMCLibrary.Tests/PSXMMCLibrary.Tests.csproj
