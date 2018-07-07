@@ -11,6 +11,8 @@
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
     <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
+    <PackageProjectUrl>https://github.com/instilledbee/PSXMMCLibrary</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/instilledbee/PSXMMCLibrary</RepositoryUrl>
   </PropertyGroup>
 
 </Project>

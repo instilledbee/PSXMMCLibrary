@@ -4,6 +4,8 @@
     <TargetFramework>netcoreapp2.0</TargetFramework>
     <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
     <IsPackable>false</IsPackable>
+    <PackageProjectUrl>https://github.com/instilledbee/PSXMMCLibrary</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/instilledbee/PSXMMCLibrary</RepositoryUrl>
   </PropertyGroup>
 
   <ItemGroup>
