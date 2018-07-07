@@ -44,9 +44,6 @@ namespace PSXMMCLibrary.Tests
 
             // Act
             outputFrame = DirectoryFrameParser.Parse(data);
-
-            // Assert
-            //Assert.IsNull(outputFrame);
         }
 
         [TestMethod]
@@ -59,9 +56,6 @@ namespace PSXMMCLibrary.Tests
 
             // Act
             outputFrame = DirectoryFrameParser.Parse(data);
-
-            // Assert
-            //Assert.IsNull(outputFrame);
         }
 
         [TestMethod]
@@ -75,9 +69,6 @@ namespace PSXMMCLibrary.Tests
 
             // Act
             outputFrame = DirectoryFrameParser.Parse(data);
-
-            // Assert
-            //Assert.IsNull(outputFrame);
         }
 
         [TestMethod]
@@ -107,7 +98,7 @@ namespace PSXMMCLibrary.Tests
             outputFrame = DirectoryFrameParser.Parse(data);
 
             // Assert
-            //Assert.AreEqual(AvailableStatus.FirstLink, outputFrame.AvailableStatus);
+            Assert.AreEqual(AvailableStatus.FirstLink, outputFrame.AvailableStatus);
         }
 
         [TestMethod]
@@ -136,9 +127,6 @@ namespace PSXMMCLibrary.Tests
 
             // Act
             outputFrame = DirectoryFrameParser.Parse(data);
-
-            // Assert
-            //Assert.IsNull(outputFrame);
         }
 
         [TestMethod]
@@ -167,9 +155,6 @@ namespace PSXMMCLibrary.Tests
 
             // Act
             outputFrame = DirectoryFrameParser.Parse(data);
-
-            // Assert
-            //Assert.IsNull(outputFrame);
         }
 
         [TestMethod]

@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Text;
 
 namespace PSXMMCLibrary
 {
@@ -14,7 +10,14 @@ namespace PSXMMCLibrary
         /// <summary>
         /// The PSX memory card's default encoding for strings it displays.
         /// </summary>
-        public static readonly Encoding ShiftJisEncoding = Encoding.GetEncoding(932);
+        public static Encoding ShiftJisEncoding
+        {
+            get
+            {
+                Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);
+                return Encoding.GetEncoding(932);
+            }
+        }
 
         /// <summary>
         /// The length of a single memory card block, in bytes.
