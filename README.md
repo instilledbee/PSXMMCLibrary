@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/instilledbee/PSXMMCLibrary.svg?branch=master)](https://travis-ci.org/instilledbee/PSXMMCLibrary)
+
 # PSXMMCLibrary
 A managed .NET library for parsing Playstation (PSX) memory card files.
 
