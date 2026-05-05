@@ -359,22 +359,16 @@ namespace PSXMMCLibrary.Tests
         }
 
         [TestMethod]
-        [ExpectedException(typeof(ArgumentNullException))]
         public void BlockParser_ParseEmptyData()
         {
-            Block block = null;
-
-            block = BlockParser.Parse(null);
-
-            Assert.IsNull(block);
+            // TODO: Assert exception message
+            Assert.Throws<ArgumentNullException>(() => _ = BlockParser.Parse(null));
         }
 
         [TestMethod]
         public void BlockParser_ParseValidLinkBlockFlag()
         {
-            Block block = null;
-
-            block = BlockParser.Parse(validBlockData);
+            Block block = BlockParser.Parse(validBlockData);
 
             Assert.AreEqual(false, block.IsLinkBlock);
         }
@@ -382,31 +376,24 @@ namespace PSXMMCLibrary.Tests
         [TestMethod]
         public void BlockParser_ParseValidIconFrameCount()
         {
-            Block block = null;
-
-            block = BlockParser.Parse(validBlockData);
+            Block block = BlockParser.Parse(validBlockData);
 
             Assert.AreEqual(2, block.IconFrames);
         }
 
         [TestMethod]
-        [ExpectedException(typeof(FormatException))]
         public void BlockParser_ParseInvalidIconFrameCount()
         {
-            Block block = null;
             validBlockData[2] = 21;
 
-            block = BlockParser.Parse(validBlockData);
-
-            Assert.AreEqual(0, block.IconFrames);
+            // TODO: Assert exception message
+            Assert.Throws<FormatException>(() => _ = BlockParser.Parse(validBlockData));
         }
         
         [TestMethod]
         public void BlockParser_ParseValidString()
         {
-            Block block = null;
-
-            block = BlockParser.Parse(validBlockData);
+            Block block = BlockParser.Parse(validBlockData);
 
             // String gets parsed as 32-char length
             // Trailing spaces are intentional
@@ -416,9 +403,7 @@ namespace PSXMMCLibrary.Tests
         [TestMethod]
         public void BlockParser_ParseNoIconFrames()
         {
-            Block block = null;
-
-            block = BlockParser.Parse(emptyData);
+            Block block = BlockParser.Parse(emptyData);
 
             Assert.IsNull(block.Icon);
         }
@@ -426,9 +411,7 @@ namespace PSXMMCLibrary.Tests
         [TestMethod]
         public void BlockParser_ParseValidIconColors()
         {
-            Block block = null;
-
-            block = BlockParser.Parse(validBlockData);
+            Block block = BlockParser.Parse(validBlockData);
 
             Assert.IsNotNull(block.Icon.Colors);
         }
@@ -436,9 +419,7 @@ namespace PSXMMCLibrary.Tests
         [TestMethod]
         public void BlockParser_ParseValidIconFrames()
         {
-            Block block = null;
-
-            block = BlockParser.Parse(validBlockData);
+            Block block = BlockParser.Parse(validBlockData);
 
             Assert.IsNotNull(block.Icon.Frames);
             Assert.AreEqual(block.IconFrames, block.Icon.Frames.Count);

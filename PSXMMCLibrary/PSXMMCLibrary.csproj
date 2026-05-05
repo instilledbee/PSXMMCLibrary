@@ -13,6 +13,7 @@
     <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
     <PackageProjectUrl>https://github.com/instilledbee/PSXMMCLibrary</PackageProjectUrl>
     <RepositoryUrl>https://github.com/instilledbee/PSXMMCLibrary</RepositoryUrl>
+    <LangVersion>latestmajor</LangVersion>
   </PropertyGroup>
 
 </Project>
