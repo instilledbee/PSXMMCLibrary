@@ -35,40 +35,29 @@ namespace PSXMMCLibrary.Tests
         }
 
         [TestMethod]
-        [ExpectedException(typeof(ArgumentException))]
         public void DirectoryFrameParser_ParseEmptyData()
         {
-            // Arrange
-            byte[] data = new byte[] { };
-            DirectoryFrame outputFrame;
-
-            // Act
-            outputFrame = DirectoryFrameParser.Parse(data);
+            // TODO: Assert exception message
+            Assert.Throws<ArgumentException>(() => _ = DirectoryFrameParser.Parse(new byte[] { }));
         }
 
         [TestMethod]
-        [ExpectedException(typeof(ArgumentNullException))]
         public void DirectoryFrameParser_ParseNullData()
         {
-            // Arrange
-            byte[] data = null;
-            DirectoryFrame outputFrame;
-
-            // Act
-            outputFrame = DirectoryFrameParser.Parse(data);
+            // TODO: Assert exception message
+            Assert.Throws<ArgumentNullException>(() => _ = DirectoryFrameParser.Parse(null));
         }
 
         [TestMethod]
-        [ExpectedException(typeof(FormatException))]
         public void DirectoryFrameParser_ParseInvalidAvailableFlag()
         {
             // Arrange
             byte[] data = emptyData;
             data[0] = 1;
-            DirectoryFrame outputFrame;
 
-            // Act
-            outputFrame = DirectoryFrameParser.Parse(data);
+            // Act & Assert
+            // TODO: Assert exception message
+            Assert.Throws<FormatException>(() => _ = DirectoryFrameParser.Parse(data));
         }
 
         [TestMethod]
@@ -76,10 +65,9 @@ namespace PSXMMCLibrary.Tests
         {
             // Arrange
             byte[] data = validData;
-            DirectoryFrame outputFrame;
 
             // Act
-            outputFrame = DirectoryFrameParser.Parse(data);
+            DirectoryFrame outputFrame = DirectoryFrameParser.Parse(data);
 
             // Assert
             Assert.AreEqual(AvailableStatus.FirstLink, outputFrame.AvailableStatus);
@@ -92,10 +80,9 @@ namespace PSXMMCLibrary.Tests
         {
             // Arrange
             byte[] data = emptyData;
-            DirectoryFrame outputFrame;
 
             // Act
-            outputFrame = DirectoryFrameParser.Parse(data);
+            DirectoryFrame outputFrame = DirectoryFrameParser.Parse(data);
 
             // Assert
             Assert.AreEqual(AvailableStatus.FirstLink, outputFrame.AvailableStatus);
@@ -106,27 +93,25 @@ namespace PSXMMCLibrary.Tests
         {
             // Arrange
             byte[] data = validData;
-            DirectoryFrame outputFrame;
 
             // Act
-            outputFrame = DirectoryFrameParser.Parse(data);
+            DirectoryFrame outputFrame = DirectoryFrameParser.Parse(data);
 
             // Assert
             Assert.AreEqual(1, outputFrame.BlocksUsed);
         }
 
         [TestMethod]
-        [ExpectedException(typeof(FormatException))]
         public void DirectoryFrameParser_ParseInvalidLinkOrder()
         {
             // Arrange
             byte[] data = emptyData;
             data[8] = 2;
             data[9] = 2;
-            DirectoryFrame outputFrame;
 
-            // Act
-            outputFrame = DirectoryFrameParser.Parse(data);
+            // Act & Assert
+            // TODO: Assert exception message
+            Assert.Throws<FormatException>(() => _ = DirectoryFrameParser.Parse(data));
         }
 
         [TestMethod]
@@ -134,27 +119,25 @@ namespace PSXMMCLibrary.Tests
         {
             // Arrange
             byte[] data = validData;
-            DirectoryFrame outputFrame;
 
             // Act
-            outputFrame = DirectoryFrameParser.Parse(data);
+            DirectoryFrame outputFrame = DirectoryFrameParser.Parse(data);
 
             // Assert
             Assert.AreEqual(-1, outputFrame.LinkOrder);
         }
 
         [TestMethod]
-        [ExpectedException(typeof(ArgumentException))]
         public void DirectoryFrameParser_ParseInvalidCountryCode()
         {
             // Arrange
             byte[] data = validData;
             data[10] = 1;
             data[11] = 1;
-            DirectoryFrame outputFrame;
 
-            // Act
-            outputFrame = DirectoryFrameParser.Parse(data);
+            // Act & Assert
+            // TODO: Assert exception message
+            Assert.Throws<ArgumentException>(() => _ = DirectoryFrameParser.Parse(data));
         }
 
         [TestMethod]
@@ -162,10 +145,9 @@ namespace PSXMMCLibrary.Tests
         {
             // Arrange
             byte[] data = validData;
-            DirectoryFrame outputFrame;
 
             // Act
-            outputFrame = DirectoryFrameParser.Parse(data);
+            DirectoryFrame outputFrame = DirectoryFrameParser.Parse(data);
 
             // Assert
             Assert.AreEqual("-SLOTS\0\0", outputFrame.Identifier);
@@ -176,10 +158,9 @@ namespace PSXMMCLibrary.Tests
         {
             // Arrange
             byte[] data = validData;
-            DirectoryFrame outputFrame;
 
             // Act
-            outputFrame = DirectoryFrameParser.Parse(data);
+            DirectoryFrame outputFrame = DirectoryFrameParser.Parse(data);
 
             // Assert
             Assert.AreEqual("SCUS-94426", outputFrame.ProductCode);
