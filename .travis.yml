@@ -1,9 +1,0 @@
-language: csharp
-dist: trusty
-mono: none
-dotnet: 2.1.4
-install:
-- dotnet restore
-script:
-- dotnet build
-- dotnet test ./PSXMMCLibrary.Tests/PSXMMCLibrary.Tests.csproj
